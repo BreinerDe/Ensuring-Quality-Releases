@@ -46,6 +46,7 @@ stages:
             - task: Bash@3
               displayName: plan
               inputs:
+                azureSubscription: 'azure connection'
                 targetType: 'inline'
                 script: |
                   terraform plan
