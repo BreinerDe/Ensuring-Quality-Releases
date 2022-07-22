@@ -46,6 +46,7 @@ stages:
                 workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
             - task: TerraformTaskV3@3
               displayName: plan
+              continueOnError: true
               inputs:
                 provider: 'azurerm'
                 command: 'plan'
