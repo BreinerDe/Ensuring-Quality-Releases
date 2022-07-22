@@ -8,10 +8,6 @@ variables:
   # Azure Resource Manager connection created during pipeline creation
   azureServiceConnectionId: 'bf16207c-0192-48bf-96d5-04c4a6350a49'
   subscription_id: '032f2e80-b6ef-44c4-93d4-6feb62c932cf'
-  ARM_CLIENT_ID: $(SERVICE-PRINCIPAL-NAME)
-  ARM_CLIENT_SECRET: $(SERVICE-PRINCIPAL-KEY)
-  ARM_SUBSCRIPTION_ID: 'bf16207c-0192-48bf-96d5-04c4a6350a49'
-  ARM_TENANT_ID: $(TENANT)
   # Environment name
   environmentName: 'final-udacity-project-dennis'
 stages:
@@ -30,11 +26,11 @@ stages:
               displayName: 'install terraform'
               inputs:
                 terraformVersion: 'latest'
-           # - task: Bash@3
-            #  inputs:
-            #    targetType: 'inline'
-            #    script: '/usr/bin/az login --service-principal --username $(SERVICE-PRINCIPAL-NAME) --password  $(SERVICE-PRINCIPAL-KEY)  --tenant $(TENANT)'
-            #    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+            - task: Bash@3
+              inputs:
+                targetType: 'inline'
+                script: '/usr/bin/az login --service-principal --username $(SERVICE-PRINCIPAL-NAME) --password  $(SERVICE-PRINCIPAL-KEY)  --tenant $(TENANT)'
+                workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
             - task: TerraformTaskV3@3
               displayName: init
               inputs:
