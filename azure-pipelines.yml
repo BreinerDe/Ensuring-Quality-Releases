@@ -6,7 +6,7 @@ name: Azure Pipelines
 variables:
   # Azure Resource Manager connection created during pipeline creation
   azureServiceConnectionId: 'bf16207c-0192-48bf-96d5-04c4a6350a49'
-  
+  subscription_id: '032f2e80-b6ef-44c4-93d4-6feb62c932cf'
 
   # Environment name
   environmentName: 'final-udacity-project-dennis'
