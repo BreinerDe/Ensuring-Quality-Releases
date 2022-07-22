@@ -37,10 +37,6 @@ stages:
                 backendAzureRmContainerName: 'dennistfcontainer'
                 backendAzureRmKey: 'terraform.tfstate'
                 workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-            - task: InstallSSHKey@0
-              inputs:
-                knownHostsEntry: 'default'
-                sshKeySecureFile: 'id_rsa'
             - task: TerraformTaskV3@3
               displayName: plan
               inputs:
