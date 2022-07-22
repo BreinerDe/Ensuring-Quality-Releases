@@ -1,0 +1,54 @@
+
+trigger:
+  - none
+  
+name: Azure Pipelines
+variables:
+  # Azure Resource Manager connection created during pipeline creation
+  azureServiceConnectionId: 'bf16207c-0192-48bf-96d5-04c4a6350a49'
+  
+
+  # Environment name
+  environmentName: 'final-udacity-project-dennis'
+stages:
+- stage: deploy_terraform
+  displayName: Deploy Terraform
+  jobs: 
+  - deployment: deploy_terraform
+    continueOnError: false
+    environment: 'dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: self
+            - task: TerraformInstaller@0
+              displayName: 'install terraform'
+              inputs:
+                terraformVersion: 'latest'
+            - task: TerraformTaskV3@3
+              displayName: init
+              inputs:
+                provider: 'azurerm'
+                command: 'init'
+                backendServiceArm: 'Azure subscription 1(032f2e80-b6ef-44c4-93d4-6feb62c932cf)'
+                backendAzureRmResourceGroupName: 'udacity-resources'
+                backendAzureRmStorageAccountName: 'dennistfstorageaccount'
+                backendAzureRmContainerName: 'dennistfcontainer'
+                backendAzureRmKey: 'terraform.tfstate'
+                workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+            - task: TerraformTaskV3@3
+              displayName: plan
+              inputs:
+                provider: 'azurerm'
+                command: 'plan'
+                environmentServiceNameAzureRM: 'azure connection'
+                workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+
+            - task: TerraformTaskV3@3
+              displayName: apply
+              inputs:
+                provider: 'azurerm'
+                command: 'apply'
+                environmentServiceNameAzureRM: 'azure connection'
+                workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
