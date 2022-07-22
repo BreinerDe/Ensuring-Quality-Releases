@@ -13,10 +13,6 @@ stages:
   - job: ProvisioningAppService
     displayName: Provisioning AppService
     steps:
-    - task: InstallSSHKey@0
-      inputs:
-        knownHostsEntry: 'default'
-        sshKeySecureFile: 'id_rsa'
     - task: Bash@3
       inputs:
         targetType: 'inline'
