@@ -27,38 +27,13 @@ stages:
               inputs:
                 terraformVersion: 'latest'
             - task: Bash@3
-              inputs:
-                targetType: 'inline'
-                script: 'export ARM_CLIENT_ID=$(SERVICE-PRINCIPAL-NAME) && export ARM_CLIENT_SECRET=$(SERVICE-PRINCIPAL-KEY) && export ARM_TENANT_ID=$(TENANT) && export ARM_SUBSCRIPTION_ID="032f2e80-b6ef-44c4-93d4-6feb62c932cf"'
-                workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-            - task: TerraformTaskV3@3
-              displayName: init
-              inputs:
-                provider: 'azurerm'
-                command: 'init'
-                backendServiceArm: 'azure connection'
-                backendAzureRmResourceGroupName: 'udacity-resources'
-                backendAzureRmStorageAccountName: 'dennistfstorageaccount'
-                backendAzureRmContainerName: 'dennistfcontainer'
-                backendAzureRmKey: 'terraform.tfstate'
-                workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-            - task: TerraformTaskV3@3
-              displayName: plan
-              continueOnError: true
-              inputs:
-                provider: 'azurerm'
-                command: 'plan'
-                environmentServiceNameAzureRM: 'azure connection'
-                workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+            - bash: |
+                terraform init \
+                  -backend-config="storage_account_name=dennistfstorageaccount" \
+                  -backend-config="container_name=$dennistfcontainer" \
+                  -backend-config="key=project.tfstate" \
+                  -backend-config="access-key=$TF_STATE_BLOB_SAS_TOKEN"
+              displayName: Terraform Init
               env:
-                ARM_CLIENT_SECRET: $(SERVICE-PRINCIPAL-NAME) 
-                ARM_CLIENT_ID: $(SERVICE-PRINCIPAL-KEY)
-                ARM_SUBSCRIPTION_ID: '032f2e80-b6ef-44c4-93d4-6feb62c932cf'
-                ARM_TENANT_ID: $(TENANT)
-            - task: TerraformTaskV3@3
-              displayName: apply
-              inputs:
-                provider: 'azurerm'
-                command: 'apply'
-                environmentServiceNameAzureRM: 'azure connection'
-                workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+                TF_STATE_BLOB_ACCESS_KEY: $(access-key)
+          
