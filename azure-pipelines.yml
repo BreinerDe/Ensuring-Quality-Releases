@@ -37,7 +37,7 @@ stages:
                 #  -backend-config="container_name=$dennistfcontainer" \
                 #  -backend-config="key=project.tfstate" \
                 #  -backend-config="access-key=$TF_STATE_BLOB_SAS_TOKEN"
-                workingDirectory: $(System.DefaultWorkingDirectory)/terraform'
+                workingDirectory: $(System.DefaultWorkingDirectory)'
               env:
                 TF_STATE_BLOB_ACCESS_KEY: $(access-key)
           
