@@ -43,5 +43,17 @@ stages:
                 ARM_CLIENT_ID: $(service-principal-name)
                 ARM_SUBSCRIPTION_ID: '032f2e80-b6ef-44c4-93d4-6feb62c932cf'
                 ARM_TENANT_ID: $(tenant)
-
+            - task: Bash@3
+              displayName: plan
+              inputs:
+                targetType: 'inline'
+                script: |
+                  terraform plan
+                workingDirectory: $(System.DefaultWorkingDirectory)/terraform
+              env:
+                TF_STATE_BLOB_ACCESS_KEY: $(access-key)
+                ARM_CLIENT_SECRET: $(service-principal-key)
+                ARM_CLIENT_ID: $(service-principal-name)
+                ARM_SUBSCRIPTION_ID: '032f2e80-b6ef-44c4-93d4-6feb62c932cf'
+                ARM_TENANT_ID: $(tenant)
           
