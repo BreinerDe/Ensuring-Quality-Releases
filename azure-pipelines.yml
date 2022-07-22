@@ -1,49 +1,50 @@
 
 trigger:
-  - main
+  - none
   
 name: Azure Pipelines
 variables:
-  python.version: '3.7.6'
-  terraform.version: '0.13.4'
+  # Azure Resource Manager connection created during pipeline creation
+  azureServiceConnectionId: 'bf16207c-0192-48bf-96d5-04c4a6350a49'
+  
+
+  # Environment name
+  environmentName: 'final-udacity-project-dennis'
 stages:
-- stage: Provisioning
-  displayName: Provisioning
+- stage: Deploy Terraform
+  displayName: Deploy Terraform
   jobs: 
-  - job: ProvisioningAppService
-    displayName: Provisioning AppService
-    steps:
-    - task: Bash@3
-      inputs:
-        targetType: 'inline'
-        script: |
-          ls /home/vsts/work/_temp/
-    - task: TerraformInstaller@0
-      displayName: Install Terraform
-      inputs:
-        terraformVersion: '0.13.4'
-    - task: TerraformTaskV1@0
-      displayName: Terraform Init
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        backendServiceArm: 'EnsuringQualityReleasesSC'
-        backendAzureRmResourceGroupName: 'RG-SUPPORT'
-        backendAzureRmStorageAccountName: 'sageneralsupport'
-        backendAzureRmContainerName: 'terraform-state'
-        backendAzureRmKey: 'ensuring-quality-releases.tfstate'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-    - task: TerraformTaskV1@0
-      displayName: Terraform Plan
-      inputs:
-        provider: 'azurerm'
-        command: 'plan'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-        environmentServiceNameAzureRM: 'EnsuringQualityReleasesSC'
-    - task: TerraformTaskV1@0
-      displayName: Terraform Validate and Apply  
-      inputs:
-        provider: 'azurerm'
-        command: 'apply'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-        environmentServiceNameAzureRM: 'EnsuringQualityReleasesSC'
+  - deployment: deploy_terraform
+    continueOnError: false
+    environment: 'dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: self
+            - task: TerraformInstaller@0
+              displayName: 'install terraform'
+              inputs:
+                terraformVersion: 'latest'
+            - task: TerraformTaskV3@3
+              displayName: init
+              inputs:
+                provider: 'azurerm'
+                command: 'init'
+                backendServiceArm: 'Azure subscription 1(032f2e80-b6ef-44c4-93d4-6feb62c932cf)'
+                backendAzureRmResourceGroupName: 'udacity-resources'
+                backendAzureRmStorageAccountName: 'dennistfstorageaccount'
+                backendAzureRmContainerName: 'dennistfcontainer'
+                backendAzureRmKey: 'terraform.tfstate'
+            - task: TerraformTaskV3@3
+              displayName: plan
+              inputs:
+                provider: 'azurerm'
+                command: 'plan'
+                environmentServiceNameAzureRM: 'azure connection'
+            - task: TerraformTaskV3@3
+              displayName: apply
+              inputs:
+                provider: 'azurerm'
+                command: 'apply'
+                environmentServiceNameAzureRM: 'azure connection'
