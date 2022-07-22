@@ -3,6 +3,7 @@ trigger:
   - none
   
 name: Azure Pipelines
+
 variables:
   # Azure Resource Manager connection created during pipeline creation
   azureServiceConnectionId: 'bf16207c-0192-48bf-96d5-04c4a6350a49'
@@ -26,6 +27,12 @@ stages:
               displayName: 'install terraform'
               inputs:
                 terraformVersion: 'latest'
+            - task: AzureCLI@2
+              inputs:
+                azureSubscription: 'azure connection'
+                scriptType: 'bash'
+                scriptLocation: 'inlineScript'
+                inlineScript: 'az login --service-principal --username $(SERVICE-PRINCIPAL-NAME) --password  $(SERVICE-PRINCIPAL-KEY)  --tenant $(TENANT)'
             - task: TerraformTaskV3@3
               displayName: init
               inputs:
