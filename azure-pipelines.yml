@@ -11,7 +11,7 @@ variables:
   # Environment name
   environmentName: 'final-udacity-project-dennis'
 stages:
-- stage: Deploy Terraform
+- stage: deploy_terraform
   displayName: Deploy Terraform
   jobs: 
   - deployment: deploy_terraform
