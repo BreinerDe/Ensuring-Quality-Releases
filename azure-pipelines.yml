@@ -27,12 +27,11 @@ stages:
               displayName: 'install terraform'
               inputs:
                 terraformVersion: 'latest'
-            - task: AzureCLI@2
+            - task: Bash@3
               inputs:
-                azureSubscription: 'azure connection'
-                scriptType: 'bash'
-                scriptLocation: 'inlineScript'
-                inlineScript: 'az login --service-principal --username $(SERVICE-PRINCIPAL-NAME) --password  $(SERVICE-PRINCIPAL-KEY)  --tenant $(TENANT)'
+                targetType: 'inline'
+                script: '''az login --service-principal --username $(SERVICE-PRINCIPAL-NAME) --password  $(SERVICE-PRINCIPAL-KEY)  --tenant $(TENANT)'''
+                workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
             - task: TerraformTaskV3@3
               displayName: init
               inputs:
