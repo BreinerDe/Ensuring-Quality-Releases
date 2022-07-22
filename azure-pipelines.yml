@@ -43,6 +43,11 @@ stages:
                 provider: 'azurerm'
                 command: 'plan'
                 environmentServiceNameAzureRM: 'azure connection'
+                backendServiceArm: 'Azure subscription 1(032f2e80-b6ef-44c4-93d4-6feb62c932cf)'
+                backendAzureRmResourceGroupName: 'udacity-resources'
+                backendAzureRmStorageAccountName: 'dennistfstorageaccount'
+                backendAzureRmContainerName: 'dennistfcontainer'
+                backendAzureRmKey: 'terraform.tfstate'
                 workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
 
             - task: TerraformTaskV3@3
