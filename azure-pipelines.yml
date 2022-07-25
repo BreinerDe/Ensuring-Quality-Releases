@@ -111,6 +111,7 @@ stages:
               sudo apt-add-repository universe -y
               sudo apt-get update -y
               sudo apt-get install python3-pip -y
+              pip3 install --upgrade pip
               sudo apt-get install unzip -y
               sudo apt-get install -y chromium-browser
               sudo apt-get install -y chromium-chromedriver
