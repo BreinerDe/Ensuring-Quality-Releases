@@ -93,7 +93,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App'
             inputs:
-              azureSubscription: 'EnsuringQualityReleasesUdacity'
+              azureSubscription: 'azure connection'
               appType: 'webApp'
               appName: 'WAS-EQR'
               package: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
