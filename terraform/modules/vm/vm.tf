@@ -12,7 +12,7 @@ resource "azurerm_network_interface" "test" {
 }
 
 resource "azurerm_linux_virtual_machine" "test" {
-  name                  = "${var.resource_type}-${var.application_type}"
+  name                  = "${var.resource_type}-vm"
   location              = var.location
   resource_group_name   = var.resource_group
   size                  = "Basic_A1"

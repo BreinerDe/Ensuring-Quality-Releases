@@ -7,10 +7,8 @@ provider "azurerm" {
 }
 terraform {
   backend "azurerm" {
-    storage_account_name = "dennistfstorageaccount"
-    container_name       = "dennistfcontainer"
-    access_key           = ""
-  }
+
+  }  
 }
 module "resource_group" {
   source               = "./modules/resource_group"
@@ -25,7 +23,7 @@ module "network" {
   application_type     = "${var.application_type}"
   resource_type        = "NET"
   resource_group       = "${module.resource_group.resource_group_name}"
-  address_prefix_test  = "${var.address_prefix_test}"
+  address_prefix_test  = ["10.0.1.0/24"]
 }
 
 module "nsg-test" {
