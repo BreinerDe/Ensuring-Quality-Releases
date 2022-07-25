@@ -60,8 +60,6 @@ stages:
   displayName: Build
   jobs:
   - job: Build
-    pool:
-      name: Hosted Ubuntu 1604
     steps:
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
