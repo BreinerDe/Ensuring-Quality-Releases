@@ -85,7 +85,7 @@ stages:
   displayName: Web App Deployment
   jobs:
   - deployment: FakeRestAPI
-    environment: 'WAP-TEST'
+    environment: 'dev'
     strategy:
       runOnce:
         deploy:
@@ -100,7 +100,7 @@ stages:
               deploymentMethod: 'auto'
   - deployment: DeployVM
     environment:
-      name: 'VMUITests'
+      name: 'dev'
       resourceType: VirtualMachine
     strategy:
       runOnce:
