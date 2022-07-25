@@ -98,3 +98,40 @@ stages:
               appName: 'dennisTerraformUdacityFinalProject'
               package: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
               deploymentMethod: 'auto'
+- stage: IntegrationTests
+  displayName: Integration Tests
+  jobs:
+  - job: PostmanTests
+    displayName: PostmanTests
+    steps: 
+    - task: NodeTool@0
+      displayName: Install Node v12.X
+      inputs:
+        versionSpec: '12.x'
+    - task: CmdLine@2
+      displayName: Install Newman
+      inputs:
+        script: 'npm install newman'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
+    - task: CmdLine@2
+      displayName: Run Regression Tests
+      inputs:
+        script: 'newman run automatedtesting/postman/RegressionTests.json -e automatedtesting/postman/RegressionTest.Environment.json --delay-request 5000 --bail newman -x --reporters cli,junit --reporter-junit-export Results/RegressionTests.xml'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
+      continueOnError: true
+    - task: CmdLine@2
+      displayName: Run Data Validation Tests
+      inputs:
+        script: 'newman run automatedtesting/postman/DataValidationTests.json -e automatedtesting/postman/DataValidationTest.Environment.json --delay-request 5000 --bail newman -x --reporters cli,junit --reporter-junit-export Results/DataValidationTests.xml'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
+      continueOnError: true
+    - task: CmdLine@2
+      inputs:
+        script: 'ls'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
+    - task: PublishTestResults@2
+      displayName: Publish Test Reports
+      condition: always()
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '$(System.DefaultWorkingDirectory)/Results/*.xml'
