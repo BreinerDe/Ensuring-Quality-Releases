@@ -56,14 +56,3 @@ stages:
                 ARM_CLIENT_ID: $(service-principal-name)
                 ARM_SUBSCRIPTION_ID: '032f2e80-b6ef-44c4-93d4-6feb62c932cf'
                 ARM_TENANT_ID: $(tenant)
-            - task: TerraformTaskV3@3
-              inputs:
-                workingDirectory: $(System.DefaultWorkingDirectory)/terraform
-                provider: 'azurerm'
-                command: 'plan'
-                environmentServiceNameAzureRM: 'azure connection'
-              env:
-                ARM_CLIENT_SECRET: $(service-principal-key)
-                ARM_CLIENT_ID: $(service-principal-name)
-                ARM_SUBSCRIPTION_ID: '032f2e80-b6ef-44c4-93d4-6feb62c932cf'
-                ARM_TENANT_ID: $(tenant)
