@@ -58,6 +58,7 @@ stages:
                 ARM_TENANT_ID: $(tenant)
             - task: TerraformTaskV3@3
               inputs:
+                workingDirectory: $(System.DefaultWorkingDirectory)/terraform
                 provider: 'azurerm'
                 command: 'plan'
                 environmentServiceNameAzureRM: 'azure connection'
