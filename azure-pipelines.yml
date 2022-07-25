@@ -49,12 +49,9 @@ stages:
                 azureSubscription: 'azure connection'
                 targetType: 'inline'
                 script: |
-                  az login --username $USER --password $PW \
-                  && terraform plan
+                  terraform plan
                 workingDirectory: $(System.DefaultWorkingDirectory)/terraform
               env:
-                PW: $(pw)
-                USER: $(username)
                 ARM_CLIENT_SECRET: $(service-principal-key)
                 ARM_CLIENT_ID: $(service-principal-name)
                 ARM_SUBSCRIPTION_ID: '032f2e80-b6ef-44c4-93d4-6feb62c932cf'
