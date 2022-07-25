@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "e825d326-caa4-42af-93fe-fa6dbea7b086",
-		"name": "Regression Tests",
+		"_postman_id": "80bde15e-af31-411d-821d-8fe20f082ffa",
+		"name": "Regression_Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -11,13 +11,14 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "988df912-2263-4104-a8d2-fa3040143470",
 						"exec": [
-							"pm.test(\"Successful response\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"success\");",
-							"});",
 							"var json = pm.response.json();",
-							"pm.environment.set(\"id\", json.data.id);"
+							"pm.environment.set(\"id\", json.data.id);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -50,15 +51,16 @@
 			"response": []
 		},
 		{
-			"name": "Get All Employees",
+			"name": "Get Employee",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "fa00a819-48bb-401d-baa0-421ef9703bbd",
 						"exec": [
-							"pm.test(\"Successful response\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"var json = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
 							"});",
 							""
 						],
@@ -70,40 +72,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/api/{{version}}/employees",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"api",
-						"{{version}}",
-						"employees"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Employee",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "a6a01b07-1cfb-42b1-975d-0dc0ab02c8f9",
-						"exec": [
-							"pm.test(\"Successful response\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"success\");",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/api/{{version}}/employee/{{id}}",
+					"raw": "{{url}}/api/{{version}}/employee/24",
 					"host": [
 						"{{url}}"
 					],
@@ -111,7 +80,7 @@
 						"api",
 						"{{version}}",
 						"employee",
-						"{{id}}"
+						"24"
 					]
 				},
 				"description": "Get a single employee data"
@@ -124,11 +93,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4b19fdaf-e717-4173-964b-544000cb6286",
 						"exec": [
-							"pm.test(\"Successful response\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"success\");",
-							"});"
+							"var json = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -168,11 +139,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7eb84325-7026-4b38-85b4-eb28adbf344e",
 						"exec": [
-							"pm.test(\"Successful response\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"success\");",
-							"});"
+							"pm.test(\"Status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -193,10 +164,9 @@
 						"{{id}}"
 					]
 				},
-				"description": "Delete an employee"
+				"description": "Delete an employee record"
 			},
 			"response": []
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
