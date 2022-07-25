@@ -100,7 +100,7 @@ stages:
               deploymentMethod: 'auto'
   - deployment: DeployVM
     environment:
-      name: 'dev'
+      name: 'VMUITests'
       resourceType: VirtualMachine
     strategy:
       runOnce:
