@@ -95,6 +95,6 @@ stages:
             inputs:
               azureSubscription: 'azure connection'
               appType: 'webApp'
-              appName: 'WAS-EQR'
+              appName: 'dennisTerraformUdacityFinalProject'
               package: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
               deploymentMethod: 'auto'
