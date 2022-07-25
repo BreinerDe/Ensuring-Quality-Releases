@@ -81,3 +81,20 @@ stages:
         replaceExistingArchive: true
     - upload: $(Build.ArtifactStagingDirectory)/selenium-tests.zip
       artifact: selenium
+- stage: WebAppDeployment
+  displayName: Web App Deployment
+  jobs:
+  - deployment: FakeRestAPI
+    environment: 'WAP-TEST'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure Web App'
+            inputs:
+              azureSubscription: 'EnsuringQualityReleasesUdacity'
+              appType: 'webApp'
+              appName: 'WAS-EQR'
+              package: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
+              deploymentMethod: 'auto'
