@@ -122,7 +122,7 @@ stages:
     - task: CmdLine@2
       displayName: Run Data Validation Tests
       inputs:
-        script: 'newman run automatedtesting/postman/DataValidationTests.json -e automatedtesting/postman/DataValidationTest.Environment.json --delay-request 5000 --bail newman -x --reporters cli,junit --reporter-junit-export Results/DataValidationTests.xml'
+        script: 'newman run automatedtesting/postman/DataValidationTests.json -e automatedtesting/postman/DataValidationTests.Environment.json --delay-request 5000 --bail newman -x --reporters cli,junit --reporter-junit-export Results/DataValidationTests.xml'
         workingDirectory: '$(System.DefaultWorkingDirectory)'
       continueOnError: true
     - task: CmdLine@2
