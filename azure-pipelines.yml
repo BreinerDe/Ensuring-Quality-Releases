@@ -85,7 +85,6 @@ stages:
   displayName: Web App Deployment
   jobs:
   - deployment: FakeRestAPI
-    environment: 'WAP-TEST'
     strategy:
       runOnce:
         deploy:
