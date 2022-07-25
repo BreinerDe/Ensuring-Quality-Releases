@@ -52,8 +52,8 @@ stages:
                   terraform plan
                 workingDirectory: $(System.DefaultWorkingDirectory)/terraform
               env:
-                ARM_CLIENT_SECRET: $(service-principal-key)
-                ARM_CLIENT_ID: $(service-principal-name)
+                ARM_CLIENT_SECRET: $env:servicePrincipalKey
+                ARM_CLIENT_ID: $env:servicePrincipalId
                 ARM_SUBSCRIPTION_ID: '032f2e80-b6ef-44c4-93d4-6feb62c932cf'
-                ARM_TENANT_ID: $(tenant)
+                ARM_TENANT_ID: $env:tenantId
           
