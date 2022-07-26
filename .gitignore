@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+automatedtesting/jmeter/general_ids.csv
+.DS_Store
+.DS_Store
