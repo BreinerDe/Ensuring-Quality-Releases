@@ -31,8 +31,8 @@ stages:
             cd $(System.DefaultWorkingDirectory)/terraform
             echo '#####################Terraform Init#####################'
             terraform init \
-            -backend-config="storage_account_name="dennistfstorageaccount" \
-            -backend-config="container_name="dennistfcontainer" \
+            -backend-config="storage_account_name=dennistfstorageaccount" \
+            -backend-config="container_name=dennistfcontainer" \
             -backend-config="access_key=$(PAT)" \
             -backend-config="key=project.tfstate"
             echo '#####################Terraform Plan#####################'
