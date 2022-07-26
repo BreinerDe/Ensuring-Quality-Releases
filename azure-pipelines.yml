@@ -36,7 +36,7 @@ stages:
             -backend-config="access_key=$(PAT)" \
             -backend-config="key=project.tfstate"
             echo '#####################Terraform Plan#####################'
-            terraform plan -var-file=$(tfvarsFile) \
+            terraform plan -var-file=terraform.tfvars \
             -var="location=westus3" \
             -var="resource_group=udacity-resources2"        
             -out="out.plan" \
