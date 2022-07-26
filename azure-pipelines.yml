@@ -195,6 +195,11 @@ stages:
                 python3 uitests.py > ui-logs.log
                 cat ui-logs.log
                 sudo mv ui-logs.log /var/logs
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: '/var/logs/ui-logs.log'
+              ArtifactName: 'seleniumlogs'
+              publishLocation: 'Container'
 - stage: JMeterTests
   displayName: JMeter Tests
   jobs:
