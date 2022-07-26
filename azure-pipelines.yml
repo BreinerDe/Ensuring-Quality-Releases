@@ -42,11 +42,7 @@ stages:
           echo '#####################Terraform Plan#####################'
           terraform plan -var-file=$(tfvarsFile) \
           -var="location=westus3" \
-          -var="resource_group=udacity-resources2" 
-        #-var="client_id=$(sp-id)" \
-        #-var="client_secret=$(sp-secret)" \
-        #-var="tenant_id=$(tenant-id)" \
-        # -var="subscription_id=$(subscription-id)" \
+          -var="resource_group=udacity-resources2"        
           -out="out.plan" \
           echo '#####################Terraform Apply#####################'
           terraform apply out.plan
@@ -55,7 +51,7 @@ stages:
           CLIENT_SECRET: $(clientSecret)
           APPLICATION_ID: $(applicationID)
           TENANT: $(tenant)
-          PAT: $(PAT)         
+          PAT: $(PAT)
 - stage: Build
   displayName: Build
   jobs:
