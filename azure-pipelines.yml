@@ -191,6 +191,7 @@ stages:
                 #!/bin/sh -x
                 unzip -o $(Pipeline.Workspace)/selenium/selenium-tests.zip -d .
                 sudo mkdir /var/logs
+                pip3 install venv
                 python3 -m venv python3env
                 source python3env/bin/activate    
                 pip3 install selenium
