@@ -188,8 +188,11 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
+                #!/bin/sh -x
                 unzip -o $(Pipeline.Workspace)/selenium/selenium-tests.zip -d .
                 sudo mkdir /var/logs
+                python3 -m venv python3env
+                source python3env/bin/activate    
                 pip3 install selenium
                 python3 uitests.py > ui-logs.log
                 cat ui-logs.log
