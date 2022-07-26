@@ -23,11 +23,9 @@ stages:
           workingDirectory: $(System.DefaultWorkingDirectory)/terraform
           scriptLocation: 'inlineScript'
           inlineScript: |
-            az login \
-            --service-principal \
-            --username $(APPLICATION_ID) \
-            --password $(CLIENT_SECRET) \
-            --tenant $(TENANT)
+            export ARM_CLIENT_ID=$APPLICATION_ID \
+            export ARM_CLIENT_SECRET=$CLIENT_SECRET \
+            export ARM_TENANT_ID=$TENANT \
             cd $(System.DefaultWorkingDirectory)/terraform
             echo '#####################Terraform Init#####################'
             terraform init \
