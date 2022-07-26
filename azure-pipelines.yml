@@ -14,48 +14,48 @@ stages:
 - stage: deploy_terraform
   displayName: Deploy Terraform
   jobs: 
-  - deployment: deploy_terraform
-    continueOnError: false
-    environment: 'dev'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-            - checkout: self
-            - task: TerraformInstaller@0
-              displayName: 'install terraform'
-              inputs:
-                terraformVersion: 'latest'
-            - task: Bash@3
-              displayName: init
-              inputs:
-                targetType: 'inline'
-                script: |
-                  terraform init \
-                  -backend-config="storage_account_name=dennistfstorageaccount" \
-                  -backend-config="container_name=dennistfcontainer" \
-                  -backend-config="key=project.tfstate" \
-                  -backend-config="access_key=$TF_STATE_BLOB_ACCESS_KEY"
-                workingDirectory: $(System.DefaultWorkingDirectory)/terraform
-              env:
-                TF_STATE_BLOB_ACCESS_KEY: $(access-key)
-                ARM_CLIENT_SECRET: $(service-principal-key)
-                ARM_CLIENT_ID: $(service-principal-name)
-                ARM_SUBSCRIPTION_ID: '032f2e80-b6ef-44c4-93d4-6feb62c932cf'
-                ARM_TENANT_ID: $(tenant)
-            - task: Bash@3
-              continueOnError: true
-              displayName: plan
-              inputs:
-                targetType: 'inline'
-                script: |
-                  terraform plan
-                workingDirectory: $(System.DefaultWorkingDirectory)/terraform
-              env:
-                ARM_CLIENT_SECRET: $(finalClientSecret)
-                ARM_CLIENT_ID: $(finalClientID)
-                ARM_SUBSCRIPTION_ID: '032f2e80-b6ef-44c4-93d4-6feb62c932cf'
-                ARM_TENANT_ID: $(tenant)
+  - job: ProvisionInfrastructure
+    steps:
+      - task: AzureKeyVault@1
+        inputs:
+          azureSubscription: 'azure connection'
+        displayName: 'Get key vault secrets as pipeline variables'
+      - task: AzureCLI@1
+        inputs:
+          azureSubscription: 'sp-20210511'
+          scriptLocation: 'inlineScript'
+          inlineScript: 'terraform version'
+        displayName: "Terraform Version"
+      - script: |
+          az login \
+          --service-principal \
+          -u $(APPLICATION_ID) \
+          -p $(CLIENT_SECRET) \
+          --tenant $(TENANT)
+          cd $(System.DefaultWorkingDirectory)/terraform
+          echo '#####################Terraform Init#####################'
+          terraform init \
+          -backend-config="storage_account_name="dennistfstorageaccount" \
+          -backend-config="container_name="dennistfcontainer" \
+          -backend-config="access_key=$(PAT)" \
+          -backend-config="key=project.tfstate"
+          echo '#####################Terraform Plan#####################'
+          terraform plan -var-file=$(tfvarsFile) \
+          -var="location=westus3" \
+          -var="resource_group=udacity-resources2" 
+        #-var="client_id=$(sp-id)" \
+        #-var="client_secret=$(sp-secret)" \
+        #-var="tenant_id=$(tenant-id)" \
+        # -var="subscription_id=$(subscription-id)" \
+          -out="out.plan" \
+          echo '#####################Terraform Apply#####################'
+          terraform apply out.plan
+        displayName: 'Terraform Init, Plan and Apply'
+        env: 
+          CLIENT_SECRET: $(clientSecret)
+          APPLICATION_ID: $(applicationID)
+          TENANT: $(tenant)
+          PAT: $(PAT)         
 - stage: Build
   displayName: Build
   jobs:
