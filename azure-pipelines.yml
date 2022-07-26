@@ -16,13 +16,9 @@ stages:
   jobs: 
   - job: ProvisionInfrastructure
     steps:
-      - task: AzureKeyVault@1
-        inputs:
-          azureSubscription: 'azure connection'
-        displayName: 'Get key vault secrets as pipeline variables'
       - task: AzureCLI@1
         inputs:
-          azureSubscription: 'sp-20210511'
+          azureSubscription: 'azure connection'
           scriptLocation: 'inlineScript'
           inlineScript: 'terraform version'
         displayName: "Terraform Version"
