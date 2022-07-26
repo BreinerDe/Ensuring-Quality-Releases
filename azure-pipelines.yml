@@ -25,8 +25,8 @@ stages:
       - script: |
           az login \
           --service-principal \
-          -u $(APPLICATION_ID) \
-          -p $(CLIENT_SECRET) \
+          --username $(APPLICATION_ID) \
+          --password $(CLIENT_SECRET) \
           --tenant $(TENANT)
           cd $(System.DefaultWorkingDirectory)/terraform
           echo '#####################Terraform Init#####################'
@@ -44,8 +44,8 @@ stages:
           terraform apply out.plan
         displayName: 'Terraform Init, Plan and Apply'
         env: 
-          CLIENT_SECRET: $(clientSecret)
-          APPLICATION_ID: $(applicationID)
+          CLIENT_SECRET: $(CLIENTSECRET)
+          APPLICATION_ID: $(APPLICATIONID)
           TENANT: $(tenant)
           PAT: $(PAT)
 - stage: Build
