@@ -19,7 +19,7 @@ stages:
       - task: AzureCLI@2
         inputs:
           scriptType: bash
-          azureSubscription: 'azure connection'
+          azureSubscription: '032f2e80-b6ef-44c4-93d4-6feb62c932cf'
           workingDirectory: $(System.DefaultWorkingDirectory)/terraform
           scriptLocation: 'inlineScript'
           inlineScript: |
