@@ -113,7 +113,7 @@ stages:
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
-                sudo pip install selenium
+                pip install selenium
                 
                 # download chrome driver
                 FILE=chromedriver_linux64.zip
@@ -191,9 +191,6 @@ stages:
                 #!/bin/sh -x
                 unzip -o $(Pipeline.Workspace)/selenium/selenium-tests.zip -d .
                 sudo mkdir /var/logs
-                pip3 install venv
-                python3 -m venv python3env
-                source python3env/bin/activate    
                 pip3 install selenium
                 python3 uitests.py > ui-logs.log
                 cat ui-logs.log
