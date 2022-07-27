@@ -10,9 +10,10 @@ variables:
   subscription_id: '032f2e80-b6ef-44c4-93d4-6feb62c932cf'
   # Environment name
   environmentName: 'final-udacity-project-dennis'
+  publicIP: ''
 stages:
 - stage: deploy_terraform
-  displayName: Deploy Terraform
+  displayName: provision infrastructure  
   jobs: 
   - deployment: deploy_terraform
     continueOnError: false
@@ -68,6 +69,18 @@ stages:
                 ARM_CLIENT_ID: $(finalClientID)
                 ARM_SUBSCRIPTION_ID: '032f2e80-b6ef-44c4-93d4-6feb62c932cf'
                 ARM_TENANT_ID: $(tenant)
+            - task: Bash@3
+              displayName: output
+              inputs:
+                targetType: 'inline'
+                script: |
+                  terraform output
+                workingDirectory: $(System.DefaultWorkingDirectory)/terraform
+              env:
+                ARM_CLIENT_SECRET: $(finalClientSecret)
+                ARM_CLIENT_ID: $(finalClientID)
+                ARM_SUBSCRIPTION_ID: '032f2e80-b6ef-44c4-93d4-6feb62c932cf'
+                ARM_TENANT_ID: $(tenant)           
 - stage: Build
   displayName: Build
   jobs:
