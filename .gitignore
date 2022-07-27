@@ -130,3 +130,6 @@ dmypy.json
 automatedtesting/jmeter/general_ids.csv
 .DS_Store
 .DS_Store
+terraform/.terraform.lock.hcl
+terraform/.terraform/providers/registry.terraform.io/hashicorp/azurerm/2.46.0/darwin_amd64/terraform-provider-azurerm_v2.46.0_x5
+terraform/.terraform/providers/registry.terraform.io/hashicorp/azurerm/3.15.0/darwin_amd64/terraform-provider-azurerm_v3.15.0_x5
