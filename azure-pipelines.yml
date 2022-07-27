@@ -44,12 +44,11 @@ stages:
                 ARM_SUBSCRIPTION_ID: '032f2e80-b6ef-44c4-93d4-6feb62c932cf'
                 ARM_TENANT_ID: $(tenant)
             - task: Bash@3
-              continueOnError: true
               displayName: plan
               inputs:
                 targetType: 'inline'
                 script: |
-                  terraform plan -var "resource_group=udacity-resources2" -var "location=west us 2"  -out="out.plan"
+                  terraform plan -var "resource_group=ensuring-quality-releases" -var "location=west us 2"  -out="out.plan"
                 workingDirectory: $(System.DefaultWorkingDirectory)/terraform
               env:
                 ARM_CLIENT_SECRET: $(finalClientSecret)
