@@ -45,11 +45,12 @@ stages:
                 ARM_TENANT_ID: $(tenant)
             - task: Bash@3
               continueOnError: true
-              displayName: plan
+              displayName: plan & apply
               inputs:
                 targetType: 'inline'
                 script: |
-                  terraform plan -var "resource_group=udacity-resources2" -var "location=west us 2"
+                  terraform plan -var "resource_group=udacity-resources2" -var "location=west us 2"  -out="out.plan" \
+                  terraform apply out.plan
                 workingDirectory: $(System.DefaultWorkingDirectory)/terraform
               env:
                 ARM_CLIENT_SECRET: $(finalClientSecret)
