@@ -45,11 +45,23 @@ stages:
                 ARM_TENANT_ID: $(tenant)
             - task: Bash@3
               continueOnError: true
-              displayName: plan & apply
+              displayName: plan
               inputs:
                 targetType: 'inline'
                 script: |
-                  terraform plan -var "resource_group=udacity-resources2" -var "location=west us 2"  -out="out.plan" \
+                  terraform plan -var "resource_group=udacity-resources2" -var "location=west us 2"  -out="out.plan"
+                workingDirectory: $(System.DefaultWorkingDirectory)/terraform
+              env:
+                ARM_CLIENT_SECRET: $(finalClientSecret)
+                ARM_CLIENT_ID: $(finalClientID)
+                ARM_SUBSCRIPTION_ID: '032f2e80-b6ef-44c4-93d4-6feb62c932cf'
+                ARM_TENANT_ID: $(tenant)
+            - task: Bash@3
+              continueOnError: true
+              displayName: apply
+              inputs:
+                targetType: 'inline'
+                script: |
                   terraform apply out.plan
                 workingDirectory: $(System.DefaultWorkingDirectory)/terraform
               env:
