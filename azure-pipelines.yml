@@ -49,7 +49,7 @@ stages:
               inputs:
                 targetType: 'inline'
                 script: |
-                  terraform plan
+                  terraform plan -var "resource_group=udacity-resources2" -var "location="west us 2"
                 workingDirectory: $(System.DefaultWorkingDirectory)/terraform
               env:
                 ARM_CLIENT_SECRET: $(finalClientSecret)
