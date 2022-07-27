@@ -131,7 +131,7 @@ stages:
               deploymentMethod: 'auto'
   - deployment: DeployVM
     environment:
-      name: 'VMUITests'
+      name: 'dennisTerraLinux-vm'
       resourceType: VirtualMachine
     strategy:
       runOnce:
