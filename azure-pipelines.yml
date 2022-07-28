@@ -112,6 +112,9 @@ stages:
               package: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'
               deploymentMethod: 'auto'
   - deployment: DeployVM
+    # On the first run this will fail because the pipelinagent for the environment needs to be installed.
+    # Maybe theres a need for 2 pipelines, one to deploy the actual infrastructure and one to actually test changes in the code
+    # Maybe use a container to execute the selenium tests. 
     environment:
       name: 'dev'
       resourceType: VirtualMachine
