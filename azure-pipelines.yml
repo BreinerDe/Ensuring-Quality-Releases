@@ -137,7 +137,7 @@ stages:
                 if [ -f "$FILE" ]; then
                   echo "$FILE exists."
                 else
-                  wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
+                  wget https://chromedriver.storage.googleapis.com/90.0.4430.24/chromedriver_linux64.zip
                 fi
                 # install chrome driver
                 unzip chromedriver_linux64.zip
