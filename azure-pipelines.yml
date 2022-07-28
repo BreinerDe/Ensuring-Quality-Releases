@@ -208,8 +208,8 @@ stages:
                 #!/bin/sh -x
                 unzip -o $(Pipeline.Workspace)/selenium/selenium-tests.zip -d .
                 sudo mkdir /var/logs
-                pip3 install selenium
-                python3 uitests.py > ui-logs.log
+                pip install selenium
+                python uitests.py > ui-logs.log
                 cat ui-logs.log
                 sudo mv ui-logs.log /var/logs
           - task: PublishBuildArtifacts@1
