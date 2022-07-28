@@ -98,7 +98,7 @@ stages:
   displayName: Web App Deployment
   jobs:
   - deployment: FakeRestAPI
-    environment: 'uitests'
+    environment: 'dev'
     strategy:
       runOnce:
         deploy:
@@ -116,7 +116,7 @@ stages:
     # Maybe theres a need for 2 pipelines, one to deploy the actual infrastructure and one to actually test changes in the code
     # Maybe use a container to execute the selenium tests. 
     environment:
-      name: 'dev'
+      name: 'uitests'
       resourceType: VirtualMachine
     strategy:
       runOnce:
