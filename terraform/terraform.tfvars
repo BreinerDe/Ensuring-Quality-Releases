@@ -7,7 +7,7 @@
 
 # Resource Group/Location
 location = "west us 3"
-resource_group = "test"
+resource_group = "ensuring-quality-releases"
 application_type = "webnapp20222807"
 
 # Network
