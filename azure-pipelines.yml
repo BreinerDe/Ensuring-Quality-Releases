@@ -98,7 +98,7 @@ stages:
   displayName: Web App Deployment
   jobs:
   - deployment: FakeRestAPI
-    environment: 'VMUITests'
+    environment: 'uitests'
     strategy:
       runOnce:
         deploy:
