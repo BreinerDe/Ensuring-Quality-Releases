@@ -135,6 +135,8 @@ stages:
                 # download chrome driver
                 wget https://chromedriver.storage.googleapis.com/90.0.4430.24/chromedriver_linux64.zip
                 # install chrome driver
+                pwd
+                hostname
                 unzip chromedriver_linux64.zip
                 sudo mv chromedriver /usr/bin/chromedriver
                 sudo chown root:root /usr/bin/chromedriver
