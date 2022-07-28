@@ -55,7 +55,7 @@ stages:
               inputs:
                 targetType: 'inline'
                 script: |
-                  terraform plan -var "resource_group=ensuring-quality-releases" -var "location=west us 3"  -out="out.plan"
+                  terraform plan out="out.plan"
                 workingDirectory: $(System.DefaultWorkingDirectory)/terraform
               env:
                 ARM_CLIENT_SECRET: $(finalClientSecret)
@@ -74,19 +74,7 @@ stages:
                 ARM_CLIENT_SECRET: $(finalClientSecret)
                 ARM_CLIENT_ID: $(finalClientID)
                 ARM_SUBSCRIPTION_ID: '032f2e80-b6ef-44c4-93d4-6feb62c932cf'
-                ARM_TENANT_ID: $(tenant)
-            - task: Bash@3
-              displayName: output
-              inputs:
-                targetType: 'inline'
-                script: |
-                  terraform output
-                workingDirectory: $(System.DefaultWorkingDirectory)/terraform
-              env:
-                ARM_CLIENT_SECRET: $(finalClientSecret)
-                ARM_CLIENT_ID: $(finalClientID)
-                ARM_SUBSCRIPTION_ID: '032f2e80-b6ef-44c4-93d4-6feb62c932cf'
-                ARM_TENANT_ID: $(tenant)
+                ARM_TENANT_ID: $(tenant)           
 - stage: Build
   displayName: Build
   jobs:
@@ -131,7 +119,7 @@ stages:
               deploymentMethod: 'auto'
   - deployment: DeployVM
     environment:
-      name: 'dennisTerraLinux-vm'
+      name: 'dev'
       resourceType: VirtualMachine
     strategy:
       runOnce:
