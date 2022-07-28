@@ -1,8 +1,9 @@
 # Azure GUIDS
-variable "subscription_id" {}
-variable "client_id" {}
-variable "client_secret" {}
-variable "tenant_id" {}
+# credentials will be set via environment variables eg. EXPORT ARM_CLIENT_ID. See https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret#configuring-the-service-principal-in-terraform
+# variable "subscription_id" {}
+# variable "client_id" {}
+# variable "client_secret" {}
+# variable "tenant_id" {}
 
 # Resource Group/Location
 variable "location" {}
