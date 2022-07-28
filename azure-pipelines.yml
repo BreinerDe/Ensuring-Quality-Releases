@@ -22,13 +22,7 @@ stages:
       runOnce:
         deploy:
           steps:
-            - checkout: self
-            - task: SSH@0
-              inputs:
-                sshEndpoint: 'sshvm'
-                runOptions: 'inline'
-                inline: 'ls -a'
-                readyTimeout: '20000'
+            - checkout: self           
             - task: TerraformInstaller@0
               displayName: 'install terraform'
               inputs:
