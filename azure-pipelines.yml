@@ -133,13 +133,10 @@ stages:
                 pip install selenium
                 
                 # download chrome driver
-                FILE=chromedriver_linux64.zip
-                if [ -f "$FILE" ]; then
-                  echo "$FILE exists."
-                else
-                  wget https://chromedriver.storage.googleapis.com/90.0.4430.24/chromedriver_linux64.zip
-                fi
+                wget https://chromedriver.storage.googleapis.com/90.0.4430.24/chromedriver_linux64.zip
                 # install chrome driver
+                pwd
+                hostname
                 unzip chromedriver_linux64.zip
                 sudo mv chromedriver /usr/bin/chromedriver
                 sudo chown root:root /usr/bin/chromedriver
@@ -208,8 +205,8 @@ stages:
                 #!/bin/sh -x
                 unzip -o $(Pipeline.Workspace)/selenium/selenium-tests.zip -d .
                 sudo mkdir /var/logs
-                pip3 install selenium
-                python3 uitests.py > ui-logs.log
+                python3.7 --version
+                python3.7 uitests.py > ui-logs.log
                 cat ui-logs.log
                 sudo mv ui-logs.log /var/logs
           - task: PublishBuildArtifacts@1
