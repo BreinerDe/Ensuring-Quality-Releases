@@ -190,7 +190,7 @@ stages:
   - deployment: VMRunUITests
     displayName: Run UI Tests
     environment:
-      name:  'VMUITests'
+      name:  'uitests'
       resourceType: VirtualMachine
     strategy:
       runOnce:
