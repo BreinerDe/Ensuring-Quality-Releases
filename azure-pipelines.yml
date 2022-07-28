@@ -208,6 +208,7 @@ stages:
                 #!/bin/sh -x
                 unzip -o $(Pipeline.Workspace)/selenium/selenium-tests.zip -d .
                 sudo mkdir /var/logs
+                python --version
                 pip install selenium
                 python uitests.py > ui-logs.log
                 cat ui-logs.log
