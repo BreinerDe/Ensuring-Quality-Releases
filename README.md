@@ -11,4 +11,5 @@ This project showcases how to ensure automated quality releases with the followi
  * Deployment of an azure webapp
  
  
+![image](https://raw.githubusercontent.com/BreinerDe/Ensuring-Quality-Releases/main/Unbenanntes%20Diagramm.drawio.png)
  
